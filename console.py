@@ -1,7 +1,11 @@
 import cmd
 import shlex
 
+import os
+from app import create_app
 from cache import Cache
+
+cache = Cache()
 
 
 class CacheProxy(cmd.Cmd):
@@ -48,6 +52,12 @@ class CacheProxy(cmd.Cmd):
         if '--clear-cache' in args:
             Cache().clear()
             print('Cache cleared')
+
+        if self.port and self.origin:
+            print(f"Starting proxy server at localhost:{self.port}, forwarding to {self.origin}")
+            os.environ['ORIGIN_URL'] = self.origin
+            app = create_app()
+            app.run(port=self.port)
 
         return super().onecmd(line)
     
