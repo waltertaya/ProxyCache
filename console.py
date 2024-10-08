@@ -1,6 +1,8 @@
 import cmd
 import shlex
 
+from cache import Cache
+
 
 class CacheProxy(cmd.Cmd):
     ''' Implements a CLI for the cache proxy server '''
@@ -44,7 +46,7 @@ class CacheProxy(cmd.Cmd):
             print(f'Origin set to {self.origin}')
         
         if '--clear-cache' in args:
-            self.clear_cache()
+            Cache().clear()
             print('Cache cleared')
 
         return super().onecmd(line)
