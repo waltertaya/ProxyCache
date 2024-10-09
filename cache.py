@@ -1,4 +1,5 @@
 import redis
+import ast
 
 import dotenv
 import os
@@ -23,7 +24,9 @@ class Cache:
     
     def get(self,url):
         ''' Gets the url from the cache '''
-        return dict(self.cache.get(url))
+        bytes_obj = self.cache.get(url)
+        cached = ast.literal_eval(bytes_obj.decode('utf-8'))
+        return cached
     
     def set(self,url,response):
         ''' Sets the url in the cache '''
