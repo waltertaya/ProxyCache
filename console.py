@@ -50,7 +50,9 @@ class CacheProxy(cmd.Cmd):
             print(f'Origin set to {self.origin}')
         
         if '--clear-cache' in args:
-            self.clear_cache()
+            cache.clear()
+            return False
+            # self.clear_cache()
             # print('Cache cleared')
 
         if self.port and self.origin:
@@ -61,9 +63,13 @@ class CacheProxy(cmd.Cmd):
 
         return super().onecmd(line)
     
-    def clear_cache(self):
-        ''' Clears the cache '''
-        cache.clear()
+    # def clear_cache(self):
+    #     ''' Clears the cache '''
+    #     cache.clear()
+    
+    def do_show(self, arg):
+        ''' Shows the cache '''
+        print(cache.cache.keys())
 
 
 if __name__ == '__main__':
