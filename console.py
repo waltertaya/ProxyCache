@@ -50,8 +50,8 @@ class CacheProxy(cmd.Cmd):
             print(f'Origin set to {self.origin}')
         
         if '--clear-cache' in args:
-            Cache().clear()
-            print('Cache cleared')
+            self.clear_cache()
+            # print('Cache cleared')
 
         if self.port and self.origin:
             print(f"Starting proxy server at localhost:{self.port}, forwarding to {self.origin}")
@@ -63,7 +63,7 @@ class CacheProxy(cmd.Cmd):
     
     def clear_cache(self):
         ''' Clears the cache '''
-        self.cache = {}
+        cache.clear()
 
 
 if __name__ == '__main__':
