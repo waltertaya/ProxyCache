@@ -1,6 +1,8 @@
 import cmd
 import shlex
 
+import colorama
+
 import os
 from app import create_app
 from cache import Cache
@@ -10,7 +12,7 @@ cache = Cache()
 
 class CacheProxy(cmd.Cmd):
     ''' Implements a CLI for the cache proxy server '''
-    prompt = 'caching-proxy '
+    prompt = colorama.Fore.GREEN + colorama.Style.BRIGHT + 'caching-proxy ' + colorama.Style.RESET_ALL
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -30,9 +32,9 @@ class CacheProxy(cmd.Cmd):
         ''' Overwrites the empty line method '''
         return False
     
-    def do_quit(self, arg):
-        ''' Exits console '''
-        return True
+    # Aliases
+    do_exit = do_EOF
+    do_quit = do_EOF
     
     # def precmd(self, line):
     #     ''' Overwrites the pre command method '''
@@ -68,8 +70,21 @@ class CacheProxy(cmd.Cmd):
     #     cache.clear()
     
     def do_show(self, arg):
-        ''' Shows the cache '''
-        print(cache.cache.keys())
+        ''' Shows the cache, list of keys 
+        Usage: show
+        '''
+        list_cache = []
+        for key in cache.cache.keys():
+            list_cache.append(key.decode('utf-8'))
+        print(list_cache)
+        return False
+    
+    def do_clear(self, args):
+        ''' Clears the terminal 
+        Usage: clear
+        '''
+        os.system('clear')
+        return False
 
 
 if __name__ == '__main__':
