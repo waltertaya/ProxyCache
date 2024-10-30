@@ -35,6 +35,7 @@ class CacheProxy(cmd.Cmd):
     # Aliases
     do_exit = do_EOF
     do_quit = do_EOF
+    do_q = do_EOF
     
     # def precmd(self, line):
     #     ''' Overwrites the pre command method '''
